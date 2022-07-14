@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>我的首页</title>
+  </head>
+  <body>
+      <!--
+           <h1>--<h6>:标题，标题独立占一行，分别表示1级-6级标题
+           <center>:居中显示，该标签在html5中已经不再建议使用了。
+           <input>:输入组件，该组件用来在页面上获取用户的输入。
+                   该组件有一个重要的属性:type，用来指定组件的样子。
+                   常见的值有:
+                   type="text":文本框
+                   type="password":密码框
+                   type="radio":单选框
+                   type="checkbox":复选框
+                   type="button":按钮
+           <br>:换行
+           <a>:超链接，标签中间的文本就是超链接上显示的内容，href属性用于指定点击后
+               跳转的路径。
+           <table>标签:表格。属性border用于指定边框。
+                    <table>标签中包含<tr>标签用于表示行
+                    <tr>标签中包含<td>标签用于表示列
+                    <td>标签中常见属性:
+                    align:对其方式。left左对齐,right右对齐,center剧中对其
+                    colspan:跨列合并列，合并是从左向右合并列
+                    rowspan:跨行合并列，合并是从上向下合并列
+       -->
+      <center>
+          <h1>百度</h1>
+          <input type="text" size="32">
+          <input type="button" value="百度一下"><br>
+          <!-- 单选框和复选框可以用name属性将其划分为一组，名字相同的为一组。 -->
+          <input type="radio" name="gender">男
+          <input type="radio" name="gender">女<br>
+          <a href="http://www.taobao.com">淘宝</a>
+          <a href="http://www.jd.com">京东</a><br>
+          <table border="1">
+              <tr>
+                  <td>第一列</td>
+                  <td>第二列</td>
+                  <td colspan="2" align="center">第三列</td>
+              </tr>
+              <tr>
+                  <td>第一列</td>
+                  <td rowspan="2">第二列</td>
+                  <td>第三列</td>
+                  <td>第四列</td>
+              </tr>
+              <tr>
+                  <td>第一列</td>
+
+                  <td>第三列</td>
+                  <td>第四列</td>
+              </tr>
+          </table>
+
+
+
+      </center>
+  </body>
+</html>

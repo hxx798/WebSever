@@ -1,0 +1,8 @@
+# 项目排除路径
+/V1/target/
+/V2/target/
+/V3/target/
+/V4/target/
+/V6/target/
+/V8/target/
+/V9/target/
