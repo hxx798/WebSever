@@ -12,6 +12,7 @@ public class DispatcherServlet {
     private static File staticDir;
 
     static {
+        servlet = new DispatcherServlet();
         //定位到：target/classes
         try {
             rootDir = new File(

@@ -12,8 +12,9 @@ public class DispatcherServlet {
     private static File staticDir;
 
     static {
-        //定位到：target/classes
+        servlet = new DispatcherServlet();
         try {
+            //定位到：target/classes
             rootDir = new File(
                     ClientHandler.class.getClassLoader().getResource(".").toURI()
             );
@@ -36,11 +37,18 @@ public class DispatcherServlet {
 
         if(file.isFile()){//用户请求的资源在static目录下存在且是一个文件
             httpServletResponse.setContentFile(file);
+            httpServletResponse.addHeader("Context-Type","text.html");
+            httpServletResponse.addHeader("Content-Length",String.valueOf(file.length()));
+
         }else{
             httpServletResponse.setStatusCode(404);
             httpServletResponse.setStatusReason("NotFound");
             httpServletResponse.setContentFile(new File(staticDir,"/root/404.html"));
+            httpServletResponse.addHeader("Context-Type","text.html");
+            httpServletResponse.addHeader("Content-Length",String.valueOf(file.length()));
         }
+        //测试添加其他头
+        httpServletResponse.addHeader("Server","WebSever");
     }
     public static DispatcherServlet getInstance(){
         return servlet;
