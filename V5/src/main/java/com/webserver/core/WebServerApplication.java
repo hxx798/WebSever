@@ -13,7 +13,7 @@ public class WebServerApplication {
     public WebServerApplication(){
         try {
             System.out.println("正在启动服务端...");
-            serverSocket = new ServerSocket(8080);
+            serverSocket = new ServerSocket(8088);
             System.out.println("服务端启动完毕!");
         } catch (IOException e) {
             e.printStackTrace();
