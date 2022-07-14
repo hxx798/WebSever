@@ -28,8 +28,7 @@ public class ClientHandler implements Runnable{
             HttpServletResponse httpServletResponse = new HttpServletResponse(socket);
 
             //2处理请求
-            DispatcherServlet servlet = new DispatcherServlet();
-            servlet.service(httpServletRequest,httpServletResponse);
+            DispatcherServlet.getInstance().service(httpServletRequest,httpServletResponse);
 
             //3.发送响应
             httpServletResponse.response();

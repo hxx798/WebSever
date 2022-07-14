@@ -7,6 +7,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 public class DispatcherServlet {
+    private static DispatcherServlet servlet;
     private static File rootDir;
     private static File staticDir;
 
@@ -24,6 +25,8 @@ public class DispatcherServlet {
         staticDir = new File(rootDir,"static");
     }
 
+    private DispatcherServlet(){}
+
     public void service(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws URISyntaxException {
 
         //根据浏览器发送的请求中的抽象路径部分，去static目录下寻找页面
@@ -39,5 +42,7 @@ public class DispatcherServlet {
             httpServletResponse.setContentFile(new File(staticDir,"/root/404.html"));
         }
     }
-
+    public static DispatcherServlet getInstance(){
+        return servlet;
+    }
 }
