@@ -8,7 +8,11 @@ public class User implements Serializable {
     private String password;
     private String nickname;
     private int age;
-    //无参构造器
+
+    /**
+     * 无参构造器
+     *定义了有参构造方法后jvm不会再提供无参构造函数，定义了有参构造后无参构造器要显示地定义出来！
+     */
     public User(){}
 
     public User(String username, String password, String nickname, int age) {
