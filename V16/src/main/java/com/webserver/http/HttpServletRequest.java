@@ -3,7 +3,9 @@ package com.webserver.http;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class HttpServletRequest {
@@ -51,12 +53,17 @@ public class HttpServletRequest {
         requestURI = uri_[0];
         if (uri.contains("?")) {
             queryString = uri_[1];
-            String[] queryString_ = queryString.split("\\&");
-            for (int i=0;i<queryString_.length;i++) {
-                String[] querys = queryString_[i].split("=");
-                parameters.put(querys[0],querys.length>1?querys[1]:"");
-            }
+            parseParameters(queryString);
             System.out.println(parameters);
+        }
+    }
+
+    //解析参数
+    private void parseParameters(String line){
+        String[] queryString_ = line.split("&");
+        for (String s : queryString_) {
+            String[] paras = s.split("=");
+            parameters.put(paras[0], paras.length > 1 ? paras[1] : "");
         }
     }
 
@@ -72,15 +79,36 @@ public class HttpServletRequest {
                   将每一个消息头按照": "(冒号+空格拆)分为消息头的名字和消息头的值并以key，value的形式存入到headers中
                 */
                 String[] data = line.split(":\\s");
-                headers.put(data[0],data[1]);
+                //消息头无论大小写，全部转小写存入headers，保证兼容性
+                headers.put(data[0].toLowerCase(Locale.ROOT),data[1]);
 
             }//while循环结束，消息头分析完毕
 //            System.out.println("headers:"+headers);
     }
 
     //解析消息正文
-    private void parseContent(){
-
+    private void parseContent() throws IOException {
+        //判读本次是否为post请求
+        if ("POST".equalsIgnoreCase(method)){//ignore忽略大小写判断post
+            //根据消息头Content-Length
+            String contentLength = getHeader("Content-Length");
+            if (contentLength!=null){//u确保有消息头Content-Length
+                int length = Integer.parseInt(contentLength);
+                System.out.println("正文长度："+length);
+                byte[] data = new byte[length];
+                InputStream inputStream = socket.getInputStream();
+                inputStream.read(data);
+                //根据ContentType判断正文类型，进行对应处理
+                String contentType = getHeader("Content-Type");
+                //分支判断不同类型不同处理
+                if ("application/x-www-form-urlencoded".equals(contentType)){
+                    String line = new String(data, StandardCharsets.ISO_8859_1);
+                    System.out.println("正文内容"+line);
+                    parseParameters(line);
+                }
+//                else if () {} //拓展其他类型进行处理
+            }
+        }
     }
 
     private String readline() throws IOException {//需要被复用的方法自己不处理异常
@@ -113,8 +141,13 @@ public class HttpServletRequest {
         return protocol;
     }
 
-    public String getHeaders(String name) {
-        return headers.get(name);
+    public String getHeader(String name) {
+        /*
+            headers:
+            key             value
+            content-type    xxx/xxx
+         */
+        return headers.get(name.toLowerCase(Locale.ROOT));
     }
 
     public String getRequestURI() {
@@ -128,5 +161,10 @@ public class HttpServletRequest {
     public String getParameter(String name) {
         return parameters.get(name);
     }
+
+    public Map<String, String> getParameters() {
+        return parameters;
+    }
+
 }
 
