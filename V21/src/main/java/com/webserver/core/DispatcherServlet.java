@@ -42,25 +42,6 @@ public class DispatcherServlet {
         String path = httpServletRequest.getRequestURI();
 
         //判断本次请求是否为某个业务
-//        if ("/regUser".equals(path)) {
-//            UserController controller = new UserController();
-//            controller.reg(httpServletRequest, httpServletResponse);
-//        } else if ("/loginUser".equals(path)) {
-//            UserController controller = new UserController();
-//            controller.login(httpServletRequest, httpServletResponse);
-//        } else if ("/userList".equals(path)) {
-//            UserController controller = new UserController();
-//            controller.userList(httpServletRequest, httpServletResponse);
-//        } else if ("/writeArticle".equals(path)) {
-//            ArticleController controller = new ArticleController();
-//            controller.writeArticle(httpServletRequest, httpServletResponse);
-//        }
-//        else if("/showAllArticle".equals(path)){
-//            ArticleController controller = new ArticleController();
-//            controller.articleList(httpServletRequest,httpServletResponse);
-//        } else if ("/createQR".equals(path)) {
-//            ToolsController controller = new ToolsController();
-//            controller.createQR(httpServletRequest,httpServletResponse);
         if (true){
             File[] classFiles = dir.listFiles(f->f.getName().endsWith(".class"));
             for (File file:classFiles

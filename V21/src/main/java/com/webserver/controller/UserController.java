@@ -152,14 +152,15 @@ public class UserController {
 
     }
 
-//    public void delete(HttpServletRequest request,HttpServletResponse response){
-//        String username = request.getParameter("username");
-//        System.out.println("要删除的用户是:"+username);
-//        //根据用户名定位users目录下对应的obj文件，将该文件删除
-//        File userFile = new File(userDir,username+".obj");
-//        if(userFile.exists()){
-//            userFile.delete();
-//        }
-//        response.sendRedirect("/userList");
-//    }
+    @RequestMapping("/deleteUser")
+    public void delete(HttpServletRequest request,HttpServletResponse response){
+        String username = request.getParameter("username");
+        System.out.println("要删除的用户是:"+username);
+        //根据用户名定位users目录下对应的obj文件，将该文件删除
+        File userFile = new File(userDir,username+".obj");
+        if(userFile.exists()){
+            userFile.delete();
+        }
+        response.sendRedirect("/userList");
+    }
 }
