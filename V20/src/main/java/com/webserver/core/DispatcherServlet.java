@@ -1,6 +1,7 @@
 package com.webserver.core;
 
 import com.webserver.controller.ArticleController;
+import com.webserver.controller.ToolsController;
 import com.webserver.controller.UserController;
 import com.webserver.http.HttpServletRequest;
 import com.webserver.http.HttpServletResponse;
@@ -53,7 +54,10 @@ public class DispatcherServlet {
         else if("/showAllArticle".equals(path)){
             ArticleController controller = new ArticleController();
             controller.articleList(httpServletRequest,httpServletResponse);
-        }else{
+        } else if ("/createQR".equals(path)) {
+            ToolsController controller = new ToolsController();
+            controller.createQR(httpServletRequest,httpServletResponse);
+        } else{
             File file = new File(staticDir, path);
             System.out.println("该页面是否存在:" + file.exists());
             if (file.isFile()) {//用户请求的资源在static目录下存在且是一个文件
